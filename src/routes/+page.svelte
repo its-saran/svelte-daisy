@@ -34,15 +34,12 @@
             <div class="chat-bubble">You underestimate my power!</div>
         </div>
     </div>
-    <div class="controls z-10 flex items-center justify-center fixed w-full border border-zinc-500">
-        <div class="py-12">Controls</div>
-    </div>
 </div>
 
 
 <style>
     .playground {
-        height: calc(100vh - 100px); /* Set the height of the playground container */
+        height: 80vh; /* Set the height of the playground container */
         overflow-y: auto; /* Apply vertical overflow to the playground container */
     }
 </style>
