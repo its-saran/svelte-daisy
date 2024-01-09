@@ -1,6 +1,6 @@
 <div class="h-screen">
-    <div class="navbar bg-base-100 fixed z-10">
-        <div class="z-10">
+    <div class="navbar bg-base-100 fixed z-40">
+        <div class="z-20">
             <div class="drawer">
                 <input id="my-drawer" type="checkbox" class="drawer-toggle" />
                 <div class="drawer-content">
@@ -22,7 +22,7 @@
             <a class="btn btn-ghost text-xl">daisyUI</a>
         </div>
     </div>
-    <div class="px-4 py-4 flex flex-col gap-4 pt-20 pb-4">
+    <div class="playground px-4 py-4 flex flex-col gap-4 pt-20 pb-4">
         <div class="chat chat-start">
             <div class="chat-bubble">It's over Anakin, <br/>I have the high ground.</div>
         </div>
@@ -72,7 +72,7 @@
             <div class="chat-bubble">You underestimate my power!</div>
         </div>  
     </div>
-    <div class="btm-nav">
+    <div class="controls btm-nav z-10">
         <button>
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
           <span class="btm-nav-label">Home</span>
