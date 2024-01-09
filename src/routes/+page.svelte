@@ -2,7 +2,7 @@
     import { onMount  } from "svelte";
 </script>
 
-<div class="h-screen">
+<div class="h-screen overflow-hidden">
     <div class="navbar bg-base-100 fixed z-40">
         <div class="z-20">
             <div class="drawer">
@@ -105,3 +105,28 @@
     }
 </style>
 
+
+
+
+<!-- 
+let isChecked = false;
+
+function handleCheckboxChange() {
+    console.log(`Checkbox is ${isChecked ? 'checked' : 'unchecked'}`);
+    updateBodyOverflow();
+}
+
+// This function will be called once the component is mounted to the DOM
+onMount(() => {
+    updateBodyOverflow();
+});
+ -->
+
+
+<!-- 
+function updateBodyOverflow() {
+    document.body.style.overflow = isChecked ? 'hidden' : 'auto';
+} -->
+
+<!-- 
+<input id="my-drawer" type="checkbox" class="drawer-toggle" bind:checked={isChecked} on:change={handleCheckboxChange}/> -->
