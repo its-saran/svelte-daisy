@@ -33,50 +33,8 @@
         <div class="chat chat-end">
             <div class="chat-bubble">You underestimate my power!</div>
         </div>
-        <div class="chat chat-start">
-            <div class="chat-bubble">It's over Anakin, <br/>I have the high ground.</div>
-        </div>
-        <div class="chat chat-end">
-            <div class="chat-bubble">You underestimate my power!</div>
-        </div>
-        <div class="chat chat-start">
-            <div class="chat-bubble">It's over Anakin, <br/>I have the high ground.</div>
-        </div>
-        <div class="chat chat-end">
-            <div class="chat-bubble">You underestimate my power!</div>
-        </div>        
-        <div class="chat chat-start">
-            <div class="chat-bubble">It's over Anakin, <br/>I have the high ground.</div>
-        </div>
-        <div class="chat chat-end">
-            <div class="chat-bubble">You underestimate my power!</div>
-        </div>        
-        <div class="chat chat-start">
-            <div class="chat-bubble">It's over Anakin, <br/>I have the high ground.</div>
-        </div>
-        <div class="chat chat-end">
-            <div class="chat-bubble">You underestimate my power!</div>
-        </div>
-        <div class="chat chat-start">
-            <div class="chat-bubble">It's over Anakin, <br/>I have the high ground.</div>
-        </div>
-        <div class="chat chat-end">
-            <div class="chat-bubble">You underestimate my power!</div>
-        </div>        
-        <div class="chat chat-start">
-            <div class="chat-bubble">It's over Anakin, <br/>I have the high ground.</div>
-        </div>
-        <div class="chat chat-end">
-            <div class="chat-bubble">You underestimate my power!</div>
-        </div>     
-        <div class="chat chat-start">
-            <div class="chat-bubble">It's over Anakin, <br/>I have the high ground.</div>
-        </div>
-        <div class="chat chat-end">
-            <div class="chat-bubble">You underestimate my power!</div>
-        </div>  
     </div>
-    <div class="controls z-10 flex items-center justify-center">
+    <div class="controls z-10 flex items-center justify-center fixed w-full border border-zinc-500">
         <div class="py-12">Controls</div>
     </div>
 </div>
