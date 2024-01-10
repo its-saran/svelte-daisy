@@ -1,11 +1,8 @@
 <script>
     import { onMount } from 'svelte';
 
-    let name;
-
     import Mobile from '$lib/components/Mobile.svelte';
     import Desktop from '$lib/components/Desktop.svelte';
-    import Setup from '$lib/components/Setup/Setup.svelte'
     
     let isMobile = false;
 
@@ -17,14 +14,7 @@
 
     const handleResize = () => updateIsMobile();
 
-    const saveName = () => {
-        localStorage.setItem('name', name);
-        console.log(`Name saved as ${name}`)
-    }
-    
-
     onMount(() => {
-        name = localStorage.getItem('name')
  
         updateIsMobile();
 
@@ -37,11 +27,7 @@
 </script>
 
 <main class="w-screen h-screen overflow-hidden">
-    {#if name}
-        <Mobile/>
-    {:else}
-        <Setup bind:name={name} {saveName}/>
-    {/if}
+    <Mobile/>
 </main>
 
 <style>
@@ -49,8 +35,8 @@
 </style>
 
 
-        <!-- {#if isMobile}
-            
-        {:else}
-            <Desktop/>
-        {/if} -->
+<!-- {#if isMobile}
+    
+{:else}
+    <Desktop/>
+{/if} -->

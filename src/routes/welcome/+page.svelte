@@ -1,6 +1,20 @@
 <script>
-    export let name;
-    export let saveName;
+    let name;
+
+    import { goto } from '$app/navigation';
+
+    const goToApp = () => {
+        goto('/talk')
+    }
+
+    const saveName = () => {
+        if (name) {
+            localStorage.setItem('name', name);
+            console.log(`Name saved as ${name}`) 
+
+            goToApp()
+        }
+    }
 </script>
 
 <div class="h-screen flex flex-col items-center justify-center gap-12">
