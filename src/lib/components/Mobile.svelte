@@ -1,4 +1,34 @@
 <script>
+
+    import { onMount } from 'svelte';
+
+    const goFullscreen = () => {
+        const element = document.documentElement;
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) { // Firefox
+            element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+            element.webkitRequestFullscreen();
+        } else if (element.msRequestFullscreen) { // IE/Edge
+            element.msRequestFullscreen();
+        }
+    };
+
+    const exitFullscreen = () => {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    };
+
+    onMount(goFullscreen);
+
     import Header from '$lib/components/Home/Header.svelte'
     export let openSettings;
 
@@ -6,7 +36,7 @@
 </script>
 
 <div class="h-screen overflow-hidden">
-    <Header {openSettings} {getName}/>
+    <Header {openSettings} {getName} {exitFullscreen}/>
     <div class="playground px-4 py-4 flex flex-col gap-4 pt-20 pb-4 text-neutral-content">
         <div class="chat chat-start">
             <div class="bg-neutral p-4 rounded-xl">It's over Anakin, <br/>I have the high ground.
