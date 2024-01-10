@@ -7,6 +7,7 @@
     
     let isMobile = false;
     let isSettings = false;
+    let isFullscreen = false;
 
     const updateIsMobile = () => {
         if (typeof window !== 'undefined') {
@@ -14,20 +15,28 @@
         }
     };
 
-    const openSettings = () => {
-        isSettings = true
-    }
+    const enterFullscreen = async () => {
+        const content = document.getElementById('content');
+        if (!document.fullscreenElement) {
+            content.requestFullscreen().catch((err) => console.error(err));
+        }
+    };
 
-    const closeSettings = () => {
-        isSettings = false;
+    const exitFullscreen = () => { 
+        isFullscreen = false
+        document.exitFullscreen().catch((err) => console.error(err));
     }
-
+    const openSettings = () => isSettings = true
+    const closeSettings = () => isSettings = false
     const handleResize = () => updateIsMobile();
 
+
     onMount(() => {
+        document.addEventListener('fullscreenchange', () => {
+            isFullscreen = !!document.fullscreenElement;
+        });
  
         updateIsMobile();
-
         window.addEventListener('resize', handleResize);
 
         return () => {
@@ -37,22 +46,31 @@
 </script>
 
 <main class="w-screen h-screen overflow-hidden">
-    {#if isSettings}
-        <Settings {closeSettings}/>
-    {:else}
-        <Mobile {openSettings}/>
-    {/if}
+    <div id="enter">
+        {#if !isFullscreen}
+            <button id="start-app" class="btn btn-primary" on:click={enterFullscreen}>
+            Start App
+            </button>
+        {/if}
+    </div>
+    <div id="content">
+        {#if isFullscreen}
+            {#if isSettings}
+                <Settings {closeSettings}/>
+            {:else}
+                <Mobile {openSettings} {exitFullscreen}/>
+            {/if}
+        {/if}
+    </div>
 
-    <!-- <Mobile/> -->
 </main>
 
-<style>
-    /* Add your styles here */
+<style lang="postcss">
+    #enter {
+        @apply h-full flex items-center justify-center;
+    }
+    #content {
+        @apply bg-white h-full w-full flex flex-col select-none overflow-hidden;
+    }
 </style>
 
-
-<!-- {#if isMobile}
-    
-{:else}
-    <Desktop/>
-{/if} -->
