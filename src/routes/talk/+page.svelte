@@ -1,6 +1,8 @@
 <script>
     import { onMount } from 'svelte';
 
+    let name;
+
     import Mobile from '$lib/components/Mobile.svelte';
     import Desktop from '$lib/components/Desktop.svelte';
     import Setup from '$lib/components/Setup/Setup.svelte'
@@ -14,9 +16,16 @@
     };
 
     const handleResize = () => updateIsMobile();
+
+    const saveName = () => {
+        localStorage.setItem('name', name);
+        console.log(`Name saved as ${name}`)
+    }
     
 
     onMount(() => {
+        name = localStorage.getItem('name')
+ 
         updateIsMobile();
 
         window.addEventListener('resize', handleResize);
@@ -28,14 +37,20 @@
 </script>
 
 <main class="w-screen h-screen overflow-hidden">
-    <Setup/>
-        <!-- {#if isMobile}
-            <Mobile/>
-        {:else}
-            <Desktop/>
-        {/if} -->
+    {#if name}
+        <Mobile/>
+    {:else}
+        <Setup bind:name={name} {saveName}/>
+    {/if}
 </main>
 
 <style>
     /* Add your styles here */
 </style>
+
+
+        <!-- {#if isMobile}
+            
+        {:else}
+            <Desktop/>
+        {/if} -->
