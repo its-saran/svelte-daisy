@@ -9,6 +9,9 @@
 
     const saveName = () => {
         if (name) {
+            const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1)
+            name = capitalizeFirstLetter(name)
+
             localStorage.setItem('name', name);
             console.log(`Name saved as ${name}`) 
 
