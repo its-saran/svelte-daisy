@@ -1,12 +1,20 @@
 <script>
     import { onMount } from 'svelte';
+    import { writable } from 'svelte/store';
 
     import Mobile from '$lib/components/Mobile.svelte';
     import Desktop from '$lib/components/Desktop.svelte';
-    import Settings from '$lib/components/Settings/Settings.svelte';
-    
+    import Welcome from '$lib/components/Welcome.svelte';
+    import Keys from '$lib/components/Keys.svelte';
+
+    let initialTheme;
+    let theme
+
+    let name;
+    let deepgramKey;
+    let openaiKey;
+
     let isMobile = false;
-    let isSettings = false;
     let isFullscreen = false;
 
     const updateIsMobile = () => {
@@ -23,15 +31,31 @@
     };
 
     const exitFullscreen = () => { 
-        isFullscreen = false
+        isFullscreen = false;
         document.exitFullscreen().catch((err) => console.error(err));
     }
-    const openSettings = () => isSettings = true
-    const closeSettings = () => isSettings = false
     const handleResize = () => updateIsMobile();
+    const updateName = (text) => name = text
+    const updateKeys = (dKey, oKey) => {
+        deepgramKey = dKey;
+        openaiKey = oKey;
+    }
 
+    const changeTheme = (newTheme) => {
+        theme.update(currentTheme => newTheme)
+    };
 
     onMount(() => {
+
+        const storedTheme = localStorage.getItem('theme');
+        initialTheme = storedTheme || 'light';
+        theme = writable(initialTheme);
+
+        name = localStorage.getItem('name');
+        deepgramKey = localStorage.getItem('deepgramKey');
+        openaiKey = localStorage.getItem('openaiKey');
+
+
         document.addEventListener('fullscreenchange', () => {
             isFullscreen = !!document.fullscreenElement;
         });
@@ -45,7 +69,7 @@
     });
 </script>
 
-<main class="w-screen h-screen overflow-hidden">
+<main class="w-screen h-screen overflow-hidden" data-theme={$theme}>
     <div id="enter">
         {#if !isFullscreen}
             <button id="start-app" class="btn btn-primary" on:click={enterFullscreen}>
@@ -55,11 +79,16 @@
     </div>
     <div id="content">
         {#if isFullscreen}
-            {#if isSettings}
-                <Settings {closeSettings}/>
+            {#if !name}
+                <Welcome {updateName}/>
             {:else}
-                <Mobile {openSettings} {exitFullscreen}/>
+                {#if (deepgramKey && openaiKey)}
+                    <Mobile {exitFullscreen} {changeTheme}/>
+                {:else}
+                    <Keys {updateKeys}/>
+                {/if}
             {/if}
+
         {/if}
     </div>
 

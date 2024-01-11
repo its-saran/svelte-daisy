@@ -1,21 +1,9 @@
 <script>
-    import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
 
-    let name;
-
     const goToApp = () => {
-        if (name) {
-            goto('/talk')
-        } else {
-            goto('/welcome')
-        }
+        goto('/talk')
     }
-
-    onMount(() => {
-        name = localStorage.getItem('name')
-    })
-
 </script>
 
 <div class="hero min-h-screen bg-base-200">

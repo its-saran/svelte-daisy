@@ -1,11 +1,7 @@
 <script>
+    export let updateName;
+
     let name;
-
-    import { goto } from '$app/navigation';
-
-    const goToApp = () => {
-        goto('/talk')
-    }
 
     const saveName = () => {
         if (name) {
@@ -14,8 +10,7 @@
 
             localStorage.setItem('name', name);
             console.log(`Name saved as ${name}`) 
-
-            goToApp()
+            updateName(name)
         }
     }
 </script>
@@ -24,7 +19,7 @@
     <div class="flex items-center justify-center flex-col gap-4 w-full">
         <div class="avatar">
             <div class="w-52 rounded-full">
-                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                <img alt="" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
             </div>
         </div>
         <label class="form-control w-full max-w-xs">
@@ -34,5 +29,5 @@
             <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" bind:value={name}/>
         </label>
     </div>
-    <button class="btn btn-primary w-36" on:click={saveName}>Lets go</button>
+    <button class="btn btn-primary w-36" on:click={saveName}>Next</button>
 </div>
