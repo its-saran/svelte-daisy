@@ -7,9 +7,9 @@
     import Lock from '$lib/components/Icons/Lock.svelte';
     import Microphone from '$lib/components/Icons/Microphone.svelte';
 
-
     export let textValue;
     export let updateContent;
+    export let clearText;
 
     let deepgramKey;
     let openaiKey;
@@ -38,7 +38,6 @@
 
     const handleTouchMove = (event) => {
         event.preventDefault();
-
         if (isRecording) {
             const touchMoveCoordinates = {
                 x: event.touches[0].clientX,
@@ -117,6 +116,7 @@
     }
 
     const handleClear = () => {
+        clearText()
         console.log('recording cleared')
     }
 

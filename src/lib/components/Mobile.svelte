@@ -34,18 +34,20 @@
     };
 
     const updateContent = async () => {
-        const userText = capitalizeFirstLetter(textValue)
-        const userMessage = { id: count++, text: userText, role: 'user' };
-        addMessage(userMessage);
+        if (textValue) {
+            const userText = capitalizeFirstLetter(textValue)
+            const userMessage = { id: count++, text: userText, role: 'user' };
+            addMessage(userMessage);
 
-        clearText();
+            clearText();
 
-        try {
-            const newText = await sendMessage(userText, openaiKey);
-            const systemMessage = { id: count++, text: newText, role: 'system' };
-            addMessage(systemMessage);
-        } catch (error) {
-            console.error('Error:', error.message);
+            try {
+                const newText = await sendMessage(userText, openaiKey);
+                const systemMessage = { id: count++, text: newText, role: 'system' };
+                addMessage(systemMessage);
+            } catch (error) {
+                console.error('Error:', error.message);
+            }
         }
     };
 
@@ -61,7 +63,7 @@
         <Header {openSettings} {exitFullscreen} {getName}/>
         <Playground bind:messages/>
         <Display bind:textValue/>
-        <Controls bind:textValue {updateContent}/>
+        <Controls bind:textValue {updateContent} {clearText}/>
     </div>
 {:else}
     <Settings {closeSettings} {changeTheme}/>
