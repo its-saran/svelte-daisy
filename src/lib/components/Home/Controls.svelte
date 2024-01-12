@@ -3,9 +3,9 @@
     import { onMount } from 'svelte';
     // import Crypto from '$lib/utils/crypto.js';
     
-    import Clear from '$lib/components/icons/Clear.svelte';
-    import Lock from '$lib/components/icons/Lock.svelte';
-    import Microphone from '$lib/components/icons/Microphone.svelte';
+    import Clear from '$lib/components/Icons/Clear.svelte';
+    import Lock from '$lib/components/Icons/Lock.svelte';
+    import Microphone from '$lib/components/Icons/Microphone.svelte';
 
 
     export let textValue;
