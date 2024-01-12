@@ -1,14 +1,19 @@
 <script>
+      import { onMount } from 'svelte';
+
     import Header from '$lib/components/Home/Header.svelte'
     import Settings from '$lib/components/Settings/Settings.svelte';
     import Playground from '$lib/components/Home/Playground.svelte';
     import Controls from '$lib/components/Home/Controls.svelte';
     import Display from '$lib/components/Home/Display.svelte';
-    import sendMessage from '$lib/utils/sendMessage.js';
-    import { onMount } from 'svelte';
-
+    import requestCompletion from '$lib/utils/requestCompletion.js';
+    import requestAudio from '$lib/utils/requestAudio.js';
+    import requestAI from '$lib/utils/requestAI.js';
+  
     export let exitFullscreen;
     export let changeTheme;
+
+    let waitForAudio = true;
 
     let isSettings = false;
     let openaiKey;
@@ -42,9 +47,17 @@
             clearText();
 
             try {
-                const newText = await sendMessage(userText, openaiKey);
-                const systemMessage = { id: count++, text: newText, role: 'system' };
-                addMessage(systemMessage);
+                if (waitForAudio) {
+                    const textCompletion = await requestAI(userText, openaiKey);
+                    const systemMessage = { id: count++, text: textCompletion, role: 'system' };
+                    addMessage(systemMessage);
+                    console.log('Waited for audio')
+                } else {
+                    const textCompletion = await requestCompletion(userText, openaiKey);
+                    const systemMessage = { id: count++, text: textCompletion, role: 'system' };
+                    addMessage(systemMessage);
+                    requestAudio(textCompletion, openaiKey)
+                }
             } catch (error) {
                 console.error('Error:', error.message);
             }
