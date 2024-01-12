@@ -18,5 +18,9 @@
 		"tailwindcss": "^3.4.1",
 		"vite": "^5.0.3"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"crypto-js": "^4.2.0",
+		"crypto-random-string": "^5.0.0"
+	}
 }

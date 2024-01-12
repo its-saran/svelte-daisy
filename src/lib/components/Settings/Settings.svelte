@@ -15,6 +15,8 @@
             modalRef.close()
             localStorage.setItem('deepgramKey', deepgramKey)
             localStorage.setItem('openaiKey', openaiKey)
+            console.log(deepgramKey)
+            console.log(openaiKey)
         }
     }
 

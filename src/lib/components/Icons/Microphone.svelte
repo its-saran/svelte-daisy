@@ -1,0 +1,32 @@
+<script>
+    export let width = 32;
+    export let height = 32;
+    export let color = "#000";
+
+    const stroke = `stroke: ${color};`
+
+</script>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {width} {height}>
+    <defs>
+        <style>
+            .cls-1, .cls-2 {
+                fill: none;
+                stroke: #000;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                stroke-width: 1.5px;
+            }
+
+            .cls-2 {
+                fill-rule: evenodd;
+            }
+        </style>
+    </defs>
+
+    <g id="ic-media-microphone">
+        <rect style={stroke} class="cls-1" x="8" y="2" width="8" height="12" rx="4" />
+        <path style={stroke} class="cls-2" d="M5,10v1a7,7,0,0,0,7,7h0a7,7,0,0,0,7-7V10" />
+        <line style={stroke} class="cls-1" x1="12" y1="18" x2="12" y2="22" />
+    </g>
+</svg>
