@@ -1,4 +1,52 @@
 let currentAudio = null;
+let messages = []
+
+
+const requestAI = async (message, apiKey) => {
+    try {
+        const CHAT_API_URL = 'https://api.openai.com/v1/chat/completions';
+        const OPENAI_API_KEY = apiKey
+
+        const prompt = "Act as a native English speaker, treat the sentence below as a conversation, and provide replies accordingly. Also, don't include long paragraphs or more than four sentences. If the sentence below has a mistake, respond with something like 'Do you mean this?' and provide the corrected version. After that, reply to that corrected sentence. Ignore punctuation mistake"
+        let content = prompt + '\n' + 'Sentence:' + message
+
+        console.log(`User message: ${message}`)
+
+        let userMessage = { role: 'user', content}
+        messages = [...messages, userMessage]
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${OPENAI_API_KEY}`,
+            },
+            body: JSON.stringify({
+                model: 'gpt-3.5-turbo',
+                messages,
+            }),
+        };
+
+        const response = await fetch(CHAT_API_URL, requestOptions);
+        const data = await response.json();
+
+        const aiMessage = data.choices[0].message.content;
+
+        let systemMessage = { role: 'system', content: aiMessage}
+        messages = [...messages, systemMessage]
+
+        console.log(`System message: ${aiMessage}`)
+
+        console.log(messages)
+
+        requestAudio(aiMessage, apiKey)
+
+        return aiMessage;
+    } catch (error) {
+        console.error('Error:', error.message);
+        throw error; 
+    }
+};
 
 const stopAudio = (audioElement) => {
     if (audioElement && audioElement.parentNode) {
@@ -49,51 +97,17 @@ const requestAudio = async (message, apiKey) => {
 
         // Assuming you have a button with an id "stopButton" to stop the audio
         const stopButton = document.getElementById('stopAudio');
+        const micButton = document.getElementById('mic');
 
         // Attach the stopAudio function to the button click event
         stopButton.addEventListener('click', () => stopAudio(currentAudio));
+        micButton.addEventListener('touchstart', () => stopAudio(currentAudio))
     } catch (error) {
         console.error('Error:', error.message);
         throw error;
     }
 };
 
-
-
-const requestAI = async (message, apiKey) => {
-    try {
-        const CHAT_API_URL = 'https://api.openai.com/v1/chat/completions';
-        const OPENAI_API_KEY = apiKey
-
-        console.log(`User message: ${message}`)
-
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${OPENAI_API_KEY}`,
-            },
-            body: JSON.stringify({
-                model: 'gpt-3.5-turbo',
-                messages: [{ role: 'user', content: message }],
-            }),
-        };
-
-        const response = await fetch(CHAT_API_URL, requestOptions);
-        const data = await response.json();
-
-        const aiMessage = data.choices[0].message.content;
-
-        console.log(`System message: ${aiMessage}`)
-
-        requestAudio(aiMessage, apiKey)
-
-        return aiMessage;
-    } catch (error) {
-        console.error('Error:', error.message);
-        throw error; 
-    }
-};
 
 export default requestAI;
 
