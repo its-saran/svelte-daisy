@@ -13,6 +13,8 @@
     export let changeTheme;
 
     let waitForAudio = true;
+    let isMute = true;
+    let isSessionRunning = false;
 
     let isSettings = false;
     let openaiKey;
@@ -47,17 +49,21 @@
 
             try {
                 if (waitForAudio) {
+                    isSessionRunning = true;
                     const chatCompletion = await openAI.chatCompletion(userText, openaiKey);
                     const speech = await openAI.textToSpeech(chatCompletion, openaiKey)
                     await audioPlayer.play(speech) 
                     const systemMessage = { id: count++, text: chatCompletion, role: 'system' };
                     addMessage(systemMessage);
+                    isSessionRunning = false;
                 } else {
+                    isSessionRunning = true; 
                     const chatCompletion = await openAI.chatCompletion(userText, openaiKey);
                     const systemMessage = { id: count++, text: chatCompletion, role: 'system' };
                     addMessage(systemMessage);
                     const speech = await openAI.textToSpeech(chatCompletion, openaiKey)
                     await audioPlayer.play(speech) 
+                    isSessionRunning = false;
                 }
             } catch (error) {
                 console.error('Error:', error.message);
@@ -77,7 +83,7 @@
         <Header {openSettings} {exitFullscreen} {getName}/>
         <Playground bind:messages/>
         <Display bind:textValue/>
-        <Controls bind:textValue {updateContent} {clearText}/>
+        <Controls bind:textValue {updateContent} {clearText} bind:isSessionRunning/>
     </div>
 {:else}
     <Settings {closeSettings} {changeTheme}/>

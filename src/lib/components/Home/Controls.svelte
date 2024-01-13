@@ -10,6 +10,7 @@
     export let textValue;
     export let updateContent;
     export let clearText;
+    export let isSessionRunning;
 
     let deepgramKey;
     let openaiKey;
@@ -21,6 +22,7 @@
 
     let isRecording = false;
     let isLocked = false;
+    let isMicActive = false;
 
     let touchStartCoordinates = {};
     let touchEndCoordinates = {};
@@ -93,9 +95,9 @@
         const lockElementRect = lockElement.getBoundingClientRect();
 
         if (isInsideElement(touchEndCoordinates, touchElementRect)) {
-            stopRecording()
+           stopRecording()
         } else if (isInsideElement(touchEndCoordinates, micContainerElementRect)) {
-            stopRecording()
+           stopRecording()
         } else if (isInsideElement(touchEndCoordinates, clearElementRect)) {
             handleClear();
             stopRecording()
@@ -130,14 +132,14 @@
     }
 
     const handleUnlock = () => {
-        if (isLocked) {
+        if (isLocked || isRecording) {
             stopRecording()
         }
     }
 
     const startRecording = async () => {
-        if (!isLocked) {
-            isRecording = true;
+        if (!isLocked && !isRecording) {
+            isMicActive = true;
 
             mediaStream = mediaStream || await navigator.mediaDevices.getUserMedia({ audio: true });
 
@@ -161,9 +163,10 @@
 
             socket.onopen = () => {
                 // console.log({ event: 'onopen' });
-                console.log('Started recording');
-                mediaRecorder.start(250);
+                mediaRecorder.start(50);
                 isRecording = true;
+                focusElement = 'mic'
+                console.log('Started recording');
             };
 
             socket.onmessage = (message) => {
@@ -191,17 +194,17 @@
 
     const stopRecording = () => {
         isLocked = false
-        isRecording = false;
         focusElement = null;
 
-        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        if (isRecording && mediaRecorder && mediaRecorder.state !== 'inactive') {
             mediaRecorder.stop();
+            isRecording = false;
             socket.close();
+            isMicActive = false
 
             updateContent()
+            console.log('Recording stopped!')
         }
-
-        console.log('Recording stopped!')
     }
 
     const updateTranscript = (transcript) => {
@@ -216,25 +219,28 @@
 </script>
 
 <div id="controls">
-    <div id="clear">
-        {#if isRecording && !isLocked}
-            <button class:active={focusElement == 'clear'}>
-                <Clear width={30} height={30}/>
+    {#if !isSessionRunning}
+        <div id="clear">
+            {#if isRecording && !isLocked}
+                <button class:active={focusElement == 'clear'} on:click={handleClear}>
+                    <Clear width={30} height={30}/>
+                </button>
+            {/if}
+        </div>
+        <div id="mic-container">
+            <button id="mic" class:active={isMicActive} on:touchstart={handleTouchStart} on:touchend={handleTouchEnd} on:touchmove={handleTouchMove} on:click={() => console.log('Mic clicked')}>
+                <Microphone width={50} height={50}/>
             </button>
-        {/if}
-    </div>
-    <div id="mic-container">
-        <button id="mic" class:active={isRecording} on:touchstart={handleTouchStart} on:touchend={handleTouchEnd} on:touchmove={handleTouchMove}>
-            <Microphone width={50} height={50}/>
-        </button>
-    </div>
-    <div id="lock">
-        {#if isRecording || isLocked}
-            <button class:active={focusElement == 'lock' || isLocked} class:focus={isLocked} on:click={handleUnlock}>
-                <Lock width={30} height={30}/>
-            </button>
-        {/if}
-    </div>
+        </div>
+        <div id="lock">
+            {#if isRecording || isLocked}
+                <button class:active={focusElement == 'lock' || isLocked} class:focus={isLocked} on:click={handleUnlock}>
+                    <Lock width={30} height={30}/>
+                </button>
+            {/if}
+        </div>   
+    {/if}
+
 </div>
 
 <style lang="postcss">
