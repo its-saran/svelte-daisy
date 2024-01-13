@@ -163,7 +163,7 @@
 
             socket.onopen = () => {
                 // console.log({ event: 'onopen' });
-                mediaRecorder.start(50);
+                mediaRecorder.start(100);
                 isRecording = true;
                 focusElement = 'mic'
                 console.log('Started recording');
@@ -242,7 +242,7 @@
     {:else}
         <div id="mic-container-disabled">
             <button id="mic-disabled" class="cursor-none">
-                <Microphone width={50} height={50}/>
+                <span class="loading loading-spinner loading-lg p-2"></span>
             </button>
         </div>
     {/if}
@@ -288,7 +288,7 @@
 
     
     #mic-disabled {
-        @apply my-4 cursor-pointer flex items-center justify-center rounded-full border-2 border-gray-100;
+        @apply my-4 cursor-pointer flex items-center justify-center rounded-full border-2 border-zinc-500;
         transition: all .85s cubic-bezier(0.25, 1, 0.33, 1);
         -webkit-tap-highlight-color: transparent;
         padding: 22px 20px;
