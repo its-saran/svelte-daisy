@@ -239,6 +239,12 @@
                 </button>
             {/if}
         </div>   
+    {:else}
+        <div id="mic-container-disabled">
+            <button id="mic-disabled" class="cursor-none">
+                <Microphone width={50} height={50}/>
+            </button>
+        </div>
     {/if}
 
 </div>
@@ -279,6 +285,15 @@
         tap-highlight-color: rgba(0,0,0,0);
         padding: 22px 20px;
     }
+
+    
+    #mic-disabled {
+        @apply my-4 cursor-pointer flex items-center justify-center rounded-full border-2 border-gray-100;
+        transition: all .85s cubic-bezier(0.25, 1, 0.33, 1);
+        -webkit-tap-highlight-color: transparent;
+        padding: 22px 20px;
+    }
+
 
     #mic.active {
         transform:scale(0.8);
