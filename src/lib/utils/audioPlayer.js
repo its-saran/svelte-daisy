@@ -13,10 +13,8 @@ const play = async (speech) => {
     currentAudio = audio;
 
     const stopButton = document.getElementById('stopAudio');
-    // const micButton = document.getElementById('mic');
 
-    stopButton.addEventListener('click', () => stopAudio(currentAudio));
-    // micButton.addEventListener('touchstart', () => stopAudio(currentAudio))
+    stopButton.addEventListener('click', () => stop(currentAudio));
 }
 
 const stop = (audioElement) => {

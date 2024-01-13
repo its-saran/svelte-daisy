@@ -7,6 +7,8 @@
     import Lock from '$lib/components/Icons/Lock.svelte';
     import Microphone from '$lib/components/Icons/Microphone.svelte';
 
+    let isFullscreen;
+
     export let textValue;
     export let updateContent;
     export let clearText;
@@ -212,9 +214,18 @@
         textValue += transcript + ' ';
     };
 
+    const checkFullscreen = () => {
+        isFullscreen = document.fullscreenElement !== null;
+        if (!isFullscreen) {
+            stopRecording()
+        }
+    };
+
     onMount(() => {
         deepgramKey = localStorage.getItem('deepgramKey');
         openaiKey = localStorage.getItem('openaiKey');
+
+        document.addEventListener('fullscreenchange', checkFullscreen);
     })
 </script>
 

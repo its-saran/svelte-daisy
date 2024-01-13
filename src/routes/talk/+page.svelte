@@ -10,6 +10,9 @@
     let initialTheme;
     let theme
 
+    let count = 0;
+    let messages = []
+
     let name;
     let deepgramKey;
     let openaiKey;
@@ -83,7 +86,7 @@
                 <Welcome {updateName}/>
             {:else}
                 {#if (deepgramKey && openaiKey)}
-                    <Mobile {exitFullscreen} {changeTheme}/>
+                    <Mobile {exitFullscreen} {changeTheme} bind:messages bind:count/>
                 {:else}
                     <Keys {updateKeys}/>
                 {/if}

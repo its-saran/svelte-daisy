@@ -11,6 +11,8 @@
   
     export let exitFullscreen;
     export let changeTheme;
+    export let messages;
+    export let count;
 
     let waitForAudio = true;
     let isMute = true;
@@ -24,8 +26,6 @@
     const getName = () => localStorage.getItem('name')
 
     let textValue = '';
-    let count = 0;
-    let messages = [];
 
     const addMessage = (userMessage) => {
         messages = [...messages, userMessage];
@@ -47,26 +47,34 @@
 
             clearText();
 
-            try {
-                if (waitForAudio) {
-                    isSessionRunning = true;
-                    const chatCompletion = await openAI.chatCompletion(userText, openaiKey);
-                    const speech = await openAI.textToSpeech(chatCompletion, openaiKey)
-                    await audioPlayer.play(speech) 
-                    const systemMessage = { id: count++, text: chatCompletion, role: 'system' };
-                    addMessage(systemMessage);
-                    isSessionRunning = false;
-                } else {
-                    isSessionRunning = true; 
-                    const chatCompletion = await openAI.chatCompletion(userText, openaiKey);
-                    const systemMessage = { id: count++, text: chatCompletion, role: 'system' };
-                    addMessage(systemMessage);
-                    const speech = await openAI.textToSpeech(chatCompletion, openaiKey)
-                    await audioPlayer.play(speech) 
-                    isSessionRunning = false;
+            if (!isMute) {
+                try {
+                    if (waitForAudio) {
+                        isSessionRunning = true;
+                        const chatCompletion = await openAI.chatCompletion(userText, openaiKey);
+                        const speech = await openAI.textToSpeech(chatCompletion, openaiKey)
+                        await audioPlayer.play(speech) 
+                        const systemMessage = { id: count++, text: chatCompletion, role: 'system' };
+                        addMessage(systemMessage);
+                        isSessionRunning = false;
+                    } else {
+                        isSessionRunning = true; 
+                        const chatCompletion = await openAI.chatCompletion(userText, openaiKey);
+                        const systemMessage = { id: count++, text: chatCompletion, role: 'system' };
+                        addMessage(systemMessage);
+                        const speech = await openAI.textToSpeech(chatCompletion, openaiKey)
+                        await audioPlayer.play(speech) 
+                        isSessionRunning = false;
+                    }
+                } catch (error) {
+                    console.error('Error:', error.message);
                 }
-            } catch (error) {
-                console.error('Error:', error.message);
+            } else {
+                isSessionRunning = true;
+                const chatCompletion = await openAI.chatCompletion(userText, openaiKey);
+                const systemMessage = { id: count++, text: chatCompletion, role: 'system' };
+                addMessage(systemMessage);
+                isSessionRunning = false;
             }
         }
     };
@@ -79,7 +87,7 @@
 
 
 {#if !isSettings}
-    <div class="h-screen overflow-hidden">
+    <div id="mobile" class="h-screen overflow-hidden">
         <Header {openSettings} {exitFullscreen} {getName}/>
         <Playground bind:messages/>
         <Display bind:textValue/>

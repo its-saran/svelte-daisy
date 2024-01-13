@@ -1,16 +1,21 @@
 <script>
     import MessageCard from "$lib/components/Home/MessageCard.svelte";
+    import { afterUpdate } from "svelte";
 
     export let messages;
+    let container;
+
+    afterUpdate(() => {
+        container.scrollTop = container.scrollHeight;
+    });
 </script>
 
-<div id="playground">
+<div id="playground" bind:this={container}>
     <ul>
         {#each messages as { id, text, role } (id)}
             <MessageCard {id} {text} {role}/>
         {/each}
     </ul>
-    
 </div>
 
 <style lang=postcss>
@@ -22,5 +27,4 @@
     ul {
         @apply flex flex-col h-full pt-16;
     }
-
 </style>
