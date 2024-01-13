@@ -1,14 +1,13 @@
 <script>
-      import { onMount } from 'svelte';
+    import { onMount } from 'svelte';
 
     import Header from '$lib/components/Home/Header.svelte'
     import Settings from '$lib/components/Settings/Settings.svelte';
     import Playground from '$lib/components/Home/Playground.svelte';
     import Controls from '$lib/components/Home/Controls.svelte';
     import Display from '$lib/components/Home/Display.svelte';
-    import requestCompletion from '$lib/utils/requestCompletion.js';
-    import requestAudio from '$lib/utils/requestAudio.js';
-    import requestAI from '$lib/utils/requestAI.js';
+    import openAI from '$lib/utils/openAI.js';
+    import audioPlayer from '$lib/utils/audioPlayer.js'
   
     export let exitFullscreen;
     export let changeTheme;
@@ -48,15 +47,17 @@
 
             try {
                 if (waitForAudio) {
-                    const textCompletion = await requestAI(userText, openaiKey);
-                    const systemMessage = { id: count++, text: textCompletion, role: 'system' };
+                    const chatCompletion = await openAI.chatCompletion(userText, openaiKey);
+                    const speech = await openAI.textToSpeech(chatCompletion, openaiKey)
+                    await audioPlayer.play(speech) 
+                    const systemMessage = { id: count++, text: chatCompletion, role: 'system' };
                     addMessage(systemMessage);
-                    console.log('Waited for audio')
                 } else {
-                    const textCompletion = await requestCompletion(userText, openaiKey);
-                    const systemMessage = { id: count++, text: textCompletion, role: 'system' };
+                    const chatCompletion = await openAI.chatCompletion(userText, openaiKey);
+                    const systemMessage = { id: count++, text: chatCompletion, role: 'system' };
                     addMessage(systemMessage);
-                    requestAudio(textCompletion, openaiKey)
+                    const speech = await openAI.textToSpeech(chatCompletion, openaiKey)
+                    await audioPlayer.play(speech) 
                 }
             } catch (error) {
                 console.error('Error:', error.message);

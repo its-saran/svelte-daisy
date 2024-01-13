@@ -160,7 +160,7 @@
             socket = new WebSocket('wss://api.deepgram.com/v1/listen', ['token', deepgramKey]);
 
             socket.onopen = () => {
-                console.log({ event: 'onopen' });
+                // console.log({ event: 'onopen' });
                 console.log('Started recording');
                 mediaRecorder.start(250);
                 isRecording = true;
@@ -180,8 +180,12 @@
                 }
             };
 
-            socket.onclose = () => console.log({ event: 'onclose' });
-            socket.onerror = (error) => console.log({ event: 'onerror', error });
+            socket.onclose = () => { 
+                // console.log({ event: 'onclose' }); 
+            }
+            socket.onerror = (error) => { 
+                console.log({ event: 'onerror', error });
+            }
         }
     }
 
