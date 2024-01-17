@@ -2,16 +2,16 @@
     import { onMount } from 'svelte';
     import { writable } from 'svelte/store';
 
-    import Mobile from '$lib/components/Mobile.svelte';
-    import Desktop from '$lib/components/Desktop.svelte';
+    import App from '$lib/components/App.svelte';
     import Welcome from '$lib/components/Welcome.svelte';
     import Keys from '$lib/components/Keys.svelte';
+    import Loader from '$lib/components/Loader.svelte'
 
     let initialTheme;
-    let theme
+    let theme;
 
     let count = 0;
-    let messages = []
+    let messages = [];
 
     let name;
     let deepgramKey;
@@ -19,6 +19,7 @@
 
     let isMobile = false;
     let isFullscreen = false;
+    let isLoading = true;
 
     const updateIsMobile = () => {
         if (typeof window !== 'undefined') {
@@ -33,23 +34,23 @@
         }
     };
 
-    const exitFullscreen = () => { 
+    const exitFullscreen = () => {
         isFullscreen = false;
         document.exitFullscreen().catch((err) => console.error(err));
-    }
+    };
+
     const handleResize = () => updateIsMobile();
-    const updateName = (text) => name = text
+    const updateName = (text) => (name = text);
     const updateKeys = (dKey, oKey) => {
         deepgramKey = dKey;
         openaiKey = oKey;
-    }
-
-    const changeTheme = (newTheme) => {
-        theme.update(currentTheme => newTheme)
     };
 
-    onMount(() => {
+    const changeTheme = (newTheme) => {
+        theme.update((currentTheme) => newTheme);
+    };
 
+    onMount(async () => {
         const storedTheme = localStorage.getItem('theme');
         initialTheme = storedTheme || 'light';
         theme = writable(initialTheme);
@@ -58,51 +59,59 @@
         deepgramKey = localStorage.getItem('deepgramKey');
         openaiKey = localStorage.getItem('openaiKey');
 
-
         document.addEventListener('fullscreenchange', () => {
             isFullscreen = !!document.fullscreenElement;
         });
- 
+
         updateIsMobile();
         window.addEventListener('resize', handleResize);
 
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
+        // Simulate an asynchronous operation (e.g., fetching data)
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        // Set loading to false once the data is ready
+        isLoading = false;
     });
 </script>
 
 <main class="w-screen h-screen overflow-hidden" data-theme={$theme}>
-    <div id="enter">
-        {#if !isFullscreen}
-            <button id="start-app" class="btn btn-primary" on:click={enterFullscreen}>
-            Start App
-            </button>
-        {/if}
-    </div>
-    <div id="content">
-        {#if isFullscreen}
+    {#if isLoading}
+        <!-- Loading screen -->
+        <Loader/>
+    {:else}
+        <div class="enter">
+            {#if isMobile}
+                <div id="enter">
+                    {#if !isFullscreen}
+                        <button id="start-app" class="btn btn-primary" on:click={enterFullscreen}>
+                            Start App
+                        </button>
+                    {/if}
+                </div>
+            {/if}
+        </div>
+        <div id="content">
             {#if !name}
-                <Welcome {updateName}/>
+                <Welcome {updateName} />
             {:else}
                 {#if (deepgramKey && openaiKey)}
-                    <Mobile {exitFullscreen} {changeTheme} bind:messages bind:count/>
+                    <App {exitFullscreen} {changeTheme} bind:messages bind:count bind:isMobile bind:isFullscreen/>
                 {:else}
-                    <Keys {updateKeys}/>
+                    <Keys {updateKeys} />
                 {/if}
             {/if}
-
-        {/if}
-    </div>
-
+        </div>
+    {/if}
 </main>
 
 <style lang="postcss">
     #enter {
-        @apply h-full flex items-center justify-center;
+        @apply h-screen flex items-center justify-center;
     }
     #content {
         @apply bg-white h-full w-full flex flex-col select-none overflow-hidden;
     }
+
 </style>
+
 

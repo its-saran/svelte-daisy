@@ -13,6 +13,8 @@
     export let changeTheme;
     export let messages;
     export let count;
+    export let isMobile;
+    export let isFullscreen;
 
     let waitForAudio = true;
     let isMute = true;
@@ -88,10 +90,12 @@
 
 {#if !isSettings}
     <div id="mobile" class="h-screen overflow-hidden">
-        <Header {openSettings} {exitFullscreen} {getName}/>
+        <Header {openSettings} {exitFullscreen} {getName} bind:isMobile bind:isFullscreen/>
         <Playground bind:messages/>
         <Display bind:textValue/>
-        <Controls bind:textValue {updateContent} {clearText} bind:isSessionRunning/>
+        {#if isMobile}
+            <Controls bind:textValue {updateContent} {clearText} bind:isSessionRunning/>
+        {/if}
     </div>
 {:else}
     <Settings {closeSettings} {changeTheme}/>
