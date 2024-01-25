@@ -3,12 +3,15 @@
 
     export let openSettings;
     export let getName;
+    export let getGender;
     
     let name;
+    let gender;
     let firstLetter;
 
     onMount(() => {
-        name = getName()
+        name = getName();
+        gender = getGender();
         firstLetter = name.charAt(0);
     })
 </script>
@@ -28,7 +31,9 @@
           <button class="self-end border-t border-zinc-600 w-full flex items-center px-3 py-2 gap-4" on:click={openSettings}>
               <div class="avatar placeholder">
                   <div class="rounded-full w-12">
-                      <span><img src="./Avatars/Male.png" alt="Profile" srcset=""></span>
+                      <span>
+                          <img src="{gender === 'male' ? './Avatars/Male.png' : './Avatars/Female.png'}" alt="Profile" srcset="">
+                      </span>
                   </div>
               </div> 
               <div>{name}</div>

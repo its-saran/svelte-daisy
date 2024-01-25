@@ -8,6 +8,7 @@
     export let openSettings;
     export let exitFullscreen;
     export let getName;
+    export let getGender;
     export let isMobile;
     export let isFullscreen;
     export let isMute;
@@ -21,7 +22,7 @@
 <div class="navbar bg-base-100 fixed z-40 shadow-xl">
     <div class="z-20 w-full flex justify-between">
         <div class="flex gap-2">
-            <Sidebar {openSettings} {getName}/>
+            <Sidebar {openSettings} {getName} {getGender}/>
             <div class="btn btn-ghost text-xl p-0">Daisy AI</div>
         </div>
         <div class="flex items-center gap-2">

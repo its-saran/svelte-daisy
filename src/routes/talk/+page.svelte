@@ -14,6 +14,7 @@
     let messages = [];
 
     let name;
+    let gender;
     let deepgramKey;
     let openaiKey;
 
@@ -41,6 +42,7 @@
 
     const handleResize = () => updateIsMobile();
     const updateName = (text) => (name = text);
+    const updateGender = (text) => (gender = text);
     const updateKeys = (dKey, oKey) => {
         deepgramKey = dKey;
         openaiKey = oKey;
@@ -58,6 +60,7 @@
         await Promise.resolve();
 
         name = localStorage.getItem('name');
+        gender = localStorage.getItem('gender')
         deepgramKey = localStorage.getItem('deepgramKey');
         openaiKey = localStorage.getItem('openaiKey');
 
@@ -93,8 +96,8 @@
             {/if}
         </div>
         <div id="content">
-            {#if !name}
-                <Welcome {updateName} />
+            {#if !name || !gender}
+                <Welcome {updateName} {updateGender} />
             {:else}
                 {#if (deepgramKey && openaiKey)}
                     <App {exitFullscreen} {changeTheme} bind:messages bind:count bind:isMobile bind:isFullscreen/>

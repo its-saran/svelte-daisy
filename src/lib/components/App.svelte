@@ -26,6 +26,7 @@
     const openSettings = () => isSettings = true
     const closeSettings = () => isSettings = false
     const getName = () => localStorage.getItem('name')
+    const getGender = () => localStorage.getItem('gender')
 
     let textValue = '';
 
@@ -90,7 +91,7 @@
 
 {#if !isSettings}
     <div id="app" class="h-screen overflow-hidden">
-        <Header {openSettings} {exitFullscreen} {getName} bind:isMobile bind:isFullscreen bind:isMute/>
+        <Header {openSettings} {exitFullscreen} {getName} {getGender} bind:isMobile bind:isFullscreen bind:isMute/>
         <Playground bind:messages/>
         <Display bind:textValue/>
         {#if isMobile}
@@ -98,7 +99,7 @@
         {/if}
     </div>
 {:else}
-    <Settings {closeSettings} {getName} {changeTheme}/>
+    <Settings {closeSettings} {getName} {getGender} {changeTheme}/>
 {/if}
 
 

@@ -4,10 +4,13 @@
     export let closeSettings;
     export let changeTheme;
     export let getName;
+    export let getGender;
 
     let deepgramKey;
     let openaiKey;
     let name;
+    let gender;
+    let isLightTheme;
 
     let modalRef;
 
@@ -22,22 +25,25 @@
         }
     }
 
-    const setDefaultTheme = () => { 
-        console.log('Default')
-    }
-
     const setLightTheme = () => {
         changeTheme('light')
+        isLightTheme = true;
         localStorage.setItem('theme', 'light')
     }
 
     const setDarkTheme = () => {
         changeTheme('dark')
+        isLightTheme = false;
         localStorage.setItem('theme', 'dark')
     }
 
     onMount(() => {
+        const theme = localStorage.getItem('theme');
+
+        if (theme === 'light') isLightTheme = true;
+
         name = getName()
+        gender = getGender()
         deepgramKey = localStorage.getItem('deepgramKey')
         openaiKey = localStorage.getItem('openaiKey')
     })
@@ -64,55 +70,66 @@
         <div id="profile" class="flex flex-col items-center gap-2">
             <div class="avatar">
                 <div class="w-24 h-24 rounded-full">
-                  <img src="./Avatars/Male.png" alt="profile"/>
+                  <img src="{gender === 'male' ? './Avatars/Male.png' : './Avatars/Female.png'}" alt="profile"/>
                 </div>
             </div>
             <div class="text-lg font-medium">{name}</div>
         </div>
         <div id="settings-items" class="h-full w-full p-4 flex justify-center">
             <ul class="flex flex-col gap-4">
-                <li class="flex items-center justify-between px-12">
+                <li id="theme_section" class="flex items-center justify-between px-12">
                     <div class="text-lg font-medium">Theme</div>
-                    <div class="dropdown dropdown-right">
-                        <div tabindex="0" role="button" class="btn">
-                          Default
-                          <svg width="12px" height="12px" class="h-2 w-2 fill-current opacity-60 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg>
-                        </div>
-                        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-                        <ul tabindex="0" class="dropdown-content z-[1] p-2 shadow-2xl bg-base-300 rounded-box w-24">
-                            <!-- <li>
-                                <input type="radio" name="theme-dropdown" class="btn btn-sm btn-block btn-ghost justify-start" aria-label="Default" value="default" on:click={setDefaultTheme}/>
-                            </li> -->
-                            <li>
-                                <input type="radio" name="theme-dropdown" class="btn btn-sm btn-block btn-ghost justify-start" aria-label="Light" value="light" on:click={setLightTheme}/>
-                            </li>
-                            <li>
-                                <input type="radio" name="theme-dropdown" class="btn btn-sm btn-block btn-ghost justify-start" aria-label="Dark" value="dark" on:click={setDarkTheme}/>
-                            </li>
-                        </ul>
+                    <div>
+                        <button class="btn w-24" onclick="theme_dialog.showModal()">View</button>
+                        <dialog id="theme_dialog" class="modal">
+                            <div class="modal-box w-56">
+                                <h3 class="font-bold text-lg mb-2">Theme</h3>
+                                <div class="form-control">
+                                    <label class="label cursor-pointer">
+                                      <span class="label-text">Light</span> 
+                                      <input type="radio" name="radio-10" class="radio checked:bg-primary" on:click={setLightTheme} checked={isLightTheme}/>
+                                    </label>
+                                </div>
+                                <div class="form-control">
+                                    <label class="label cursor-pointer">
+                                      <span class="label-text">Dark</span> 
+                                      <input type="radio" name="radio-10" class="radio checked:bg-primary" on:click={setDarkTheme} checked={!isLightTheme}/>
+                                    </label>
+                                </div>
+                                <div class="modal-action m-0 mt-4 ">
+                                    <form method="dialog">
+                                      <button class="btn my-0">OK</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <form method="dialog" class="modal-backdrop">
+                                <button>close</button>
+                            </form>
+                        </dialog>
                     </div>
                 </li>
-                <li class="flex items-center justify-between px-12">
+                <li id="api_keys_section" class="flex items-center justify-between px-12">
                     <div class="text-lg font-medium">API Keys</div>
                     <div>
                         <button class="btn w-24" on:click={openModal}>Edit</button>
                         <dialog id="api_keys" class="modal" bind:this={modalRef}>
                             <div class="modal-box">
                                 <form class="card-body">
+                                    <div class="text-lg font-medium">API Keys</div>
                                     <div class="form-control">
-                                    <label class="label" for="">
-                                        <span class="label-text">Deepgram</span>
-                                    </label>
-                                    <input type="password" placeholder="API Key" class="input input-bordered" bind:value={deepgramKey} required/>
+                                        <label class="label" for="">
+                                            <span class="label-text">Deepgram</span>
+                                        </label>
+                                        <input type="password" placeholder="API Key" class="input input-bordered" bind:value={deepgramKey} required/>
                                     </div>
                                     <div class="form-control">
-                                    <label class="label" for="">
-                                        <span class="label-text">OpenAI</span>
-                                    </label>
-                                    <input type="password" placeholder="API key" class="input input-bordered" bind:value={openaiKey} required/>
+                                        <label class="label" for="">
+                                            <span class="label-text">OpenAI</span>
+                                        </label>
+                                        <input type="password" placeholder="API key" class="input input-bordered" bind:value={openaiKey} required/>
                                     </div>
                                     <div class="form-control mt-6">
-                                    <button class="btn btn-primary" on:click={submit}>Submit</button>
+                                        <button class="btn btn-primary" on:click={submit}>Submit</button>
                                     </div>
                                 </form>
                             </div>
@@ -122,7 +139,7 @@
                         </dialog>
                     </div>
                 </li>
-                <li id="about" class="flex items-center justify-between px-12">
+                <li id="about_section" class="flex items-center justify-between px-12">
                     <div class="text-lg font-medium">About</div>
                     <div>
                         <button class="btn w-24" onclick="about_dialog.showModal()">View</button>
@@ -151,5 +168,9 @@
 <style lang="postcss">
     #settings {
         @apply w-full h-full;
+    }
+
+    #settings-items ul li {
+        @apply gap-12;
     }
 </style>
