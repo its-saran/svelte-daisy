@@ -3,9 +3,11 @@
 
     export let closeSettings;
     export let changeTheme;
+    export let getName;
 
     let deepgramKey;
     let openaiKey;
+    let name;
 
     let modalRef;
 
@@ -35,6 +37,7 @@
     }
 
     onMount(() => {
+        name = getName()
         deepgramKey = localStorage.getItem('deepgramKey')
         openaiKey = localStorage.getItem('openaiKey')
     })
@@ -61,25 +64,25 @@
         <div id="profile" class="flex flex-col items-center gap-2">
             <div class="avatar">
                 <div class="w-24 h-24 rounded-full">
-                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="profile"/>
+                  <img src="./Avatars/Male.png" alt="profile"/>
                 </div>
             </div>
-            <div class="text-lg font-medium">Saran</div>
+            <div class="text-lg font-medium">{name}</div>
         </div>
         <div id="settings-items" class="h-full w-full p-4 flex justify-center">
             <ul class="flex flex-col gap-4">
                 <li class="flex items-center justify-between px-12">
-                    <div class="text-lg font-medium pr-36">Theme</div>
-                    <div class="dropdown">
+                    <div class="text-lg font-medium">Theme</div>
+                    <div class="dropdown dropdown-right">
                         <div tabindex="0" role="button" class="btn">
                           Default
                           <svg width="12px" height="12px" class="h-2 w-2 fill-current opacity-60 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg>
                         </div>
                         <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-                        <ul tabindex="0" class="dropdown-content z-[1] p-2 shadow-2xl bg-base-300 rounded-box w-52">
-                            <li>
+                        <ul tabindex="0" class="dropdown-content z-[1] p-2 shadow-2xl bg-base-300 rounded-box w-24">
+                            <!-- <li>
                                 <input type="radio" name="theme-dropdown" class="btn btn-sm btn-block btn-ghost justify-start" aria-label="Default" value="default" on:click={setDefaultTheme}/>
-                            </li>
+                            </li> -->
                             <li>
                                 <input type="radio" name="theme-dropdown" class="btn btn-sm btn-block btn-ghost justify-start" aria-label="Light" value="light" on:click={setLightTheme}/>
                             </li>

@@ -1,8 +1,7 @@
 <script>
     export let width = 32;
     export let height = 32;
-    export let color = "#000";
-
+    export let color = "currentColor"
     const stroke = `stroke: ${color};`
 </script>
   
@@ -11,7 +10,6 @@
       <style>
           .cls-1 {
               fill: none;
-              stroke: #000;
               stroke-linecap: round;
               stroke-linejoin: bevel;
               stroke-width: 1.5px;

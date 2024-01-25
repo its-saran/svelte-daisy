@@ -89,8 +89,8 @@
 
 
 {#if !isSettings}
-    <div id="mobile" class="h-screen overflow-hidden">
-        <Header {openSettings} {exitFullscreen} {getName} bind:isMobile bind:isFullscreen/>
+    <div id="app" class="h-screen overflow-hidden">
+        <Header {openSettings} {exitFullscreen} {getName} bind:isMobile bind:isFullscreen bind:isMute/>
         <Playground bind:messages/>
         <Display bind:textValue/>
         {#if isMobile}
@@ -98,10 +98,12 @@
         {/if}
     </div>
 {:else}
-    <Settings {closeSettings} {changeTheme}/>
+    <Settings {closeSettings} {getName} {changeTheme}/>
 {/if}
 
 
 <style lang="postcss">
-
+    #app {
+        @apply bg-base-100;
+    }
 </style>

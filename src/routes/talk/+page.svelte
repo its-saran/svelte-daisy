@@ -53,7 +53,9 @@
     onMount(async () => {
         const storedTheme = localStorage.getItem('theme');
         initialTheme = storedTheme || 'light';
+
         theme = writable(initialTheme);
+        await Promise.resolve();
 
         name = localStorage.getItem('name');
         deepgramKey = localStorage.getItem('deepgramKey');

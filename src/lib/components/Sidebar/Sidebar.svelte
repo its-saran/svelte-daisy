@@ -27,8 +27,8 @@
           <!-- Sidebar content here -->
           <button class="self-end border-t border-zinc-600 w-full flex items-center px-3 py-2 gap-4" on:click={openSettings}>
               <div class="avatar placeholder">
-                  <div class="bg-neutral text-neutral-content rounded-full w-12">
-                      <span>{firstLetter}</span>
+                  <div class="rounded-full w-12">
+                      <span><img src="./Avatars/Male.png" alt="Profile" srcset=""></span>
                   </div>
               </div> 
               <div>{name}</div>
