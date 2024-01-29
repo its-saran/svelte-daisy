@@ -26,7 +26,8 @@
     }
 
     .message {
-        @apply bg-[#F5F5F5] border border-[#F5F5F5] font-normal rounded-md py-4 px-4;
+        @apply bg-neutral border border-neutral font-normal rounded-md py-4 px-4;
+        /* #F5F5F5 */
     }
 
     li[role='user'] .message {
