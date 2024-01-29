@@ -26,7 +26,7 @@
     }
 
     .message {
-        @apply bg-neutral border border-neutral font-normal rounded-md py-4 px-4;
+        @apply font-normal rounded-md py-4 px-4;
         /* #F5F5F5 */
     }
 
