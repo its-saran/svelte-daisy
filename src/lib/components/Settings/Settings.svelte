@@ -80,7 +80,7 @@
                 <li id="theme_section" class="flex items-center justify-between px-12">
                     <div class="text-lg font-medium">Theme</div>
                     <div>
-                        <button class="btn w-24" onclick="theme_dialog.showModal()">View</button>
+                        <button class="btn btn-neutral w-24" onclick="theme_dialog.showModal()">View</button>
                         <dialog id="theme_dialog" class="modal">
                             <div class="modal-box w-56">
                                 <h3 class="font-bold text-lg mb-2">Theme</h3>
@@ -111,7 +111,7 @@
                 <li id="api_keys_section" class="flex items-center justify-between px-12">
                     <div class="text-lg font-medium">API Keys</div>
                     <div>
-                        <button class="btn w-24" on:click={openModal}>Edit</button>
+                        <button class="btn btn-neutral w-24" on:click={openModal}>Edit</button>
                         <dialog id="api_keys" class="modal" bind:this={modalRef}>
                             <div class="modal-box">
                                 <form class="card-body">
@@ -142,7 +142,7 @@
                 <li id="about_section" class="flex items-center justify-between px-12">
                     <div class="text-lg font-medium">About</div>
                     <div>
-                        <button class="btn w-24" onclick="about_dialog.showModal()">View</button>
+                        <button class="btn btn-neutral w-24" onclick="about_dialog.showModal()">View</button>
                         <dialog id="about_dialog" class="modal">
                             <div class="modal-box">
                                 <h3 class="font-bold text-lg">About</h3>

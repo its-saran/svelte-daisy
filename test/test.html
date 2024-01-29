@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hold Button Example</title>
+  <style>
+    #holdButton {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<button id="holdButton">Hold Me</button>
+
+<script>
+  let holdTimer;
+  const holdButton = document.getElementById('holdButton');
+
+  holdButton.addEventListener('touchstart', function() {
+    // Start the timer when touch starts
+    holdTimer = setTimeout(function() {
+      // Call your function here when the button is held
+      yourFunction();
+    }, 1000); // Adjust the duration (in milliseconds) as needed
+  });
+
+  holdButton.addEventListener('touchend', function() {
+    // Clear the timer when touch ends
+    clearTimeout(holdTimer);
+  });
+
+  function yourFunction() {
+    // Replace this with the function you want to run when the button is held
+    alert('Button held for 1 second!');
+  }
+</script>
+
+</body>
+</html>

@@ -25,11 +25,21 @@
     let isRecording = false;
     let isLocked = false;
     let isMicActive = false;
+    let isTouchActive = false;
 
     let touchStartCoordinates = {};
     let touchEndCoordinates = {};
 
+    let touchStartTime
+    let touchEndTime;
+
+
     const handleTouchStart = (event) => {
+
+        if (!isRecording) isTouchActive = true;
+
+        touchStartTime = performance.now();
+
         event.preventDefault();
         startRecording()
 
@@ -76,7 +86,6 @@
     }
 
     const handleTouchEnd = (event) => {
-
         event.preventDefault();
 
         touchEndCoordinates = {
@@ -108,6 +117,11 @@
         } else {
             handleOutside();
         }
+
+        touchEndTime = performance.now()
+        const touchTimeElapsed = touchEndTime - touchStartTime;
+
+        if ((touchTimeElapsed < 1000) && isTouchActive) { isTouchActive = false; }
     }
 
     const isInsideElement = (coordinates, elementRect) => {
@@ -244,7 +258,7 @@
             </button>
         </div>
         <div id="lock">
-            {#if isRecording || isLocked}
+            {#if (isRecording && isTouchActive) || isLocked}
                 <button class:active={focusElement == 'lock' || isLocked} class:focus={isLocked} on:click={handleUnlock}>
                     <Lock width={30} height={30}/>
                 </button>

@@ -17,7 +17,7 @@
     export let isFullscreen;
 
     let waitForAudio = true;
-    let isMute = true;
+    let isMute = false;
     let isSessionRunning = false;
 
     let isSettings = false;
