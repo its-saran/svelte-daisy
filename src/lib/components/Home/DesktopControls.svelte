@@ -6,6 +6,9 @@
     export let updateContent;
     export let clearText;
     export let isSessionRunning;
+    export let isMobile;
+    export let iconSize = isMobile ? 25 : 35;
+
 
     const sendMessage = () => {
         updateContent()
@@ -14,24 +17,24 @@
 
 <div id="desktopControls">
     <div id="controls">
-        <button id="mic">
-            <Microphone width={35} height={35}/>
+        <button id="mic" class:large={!isMobile}>
+            <Microphone width={iconSize} height={iconSize}/>
         </button>
         <textarea id="messageArea" class="textarea" placeholder="Talk with me" bind:value={textValue}></textarea>
-        <button id="send" on:click={sendMessage}>
-            <Send width={35} height={35}/>
+        <button id="send" class:large={!isMobile} on:click={sendMessage}>
+            <Send width={iconSize} height={iconSize}/>
         </button>
     </div>
 </div>
 
 <style lang="postcss">
     #desktopControls {
-        @apply flex items-center justify-center z-10;
-        height: 86px;
+        @apply flex items-center justify-center z-10 h-16 md:h-20;
+        /* height: 86px; */
     }
 
     #controls {
-        @apply flex items-center h-full gap-3 px-2 w-full mx-2 md:w-2/3 py-3 bg-base-200 border border-base-300 md:mb-12;
+        @apply flex items-center h-full gap-3 px-2 w-full mx-1 md:w-2/3 md:py-3 bg-base-200 border border-base-300 md:mb-12;
         border-radius: 50px;
     }
 
@@ -40,12 +43,16 @@
         transition: all .85s cubic-bezier(0.25, 1, 0.33, 1);
         -webkit-tap-highlight-color: transparent;
         tap-highlight-color: rgba(0,0,0,0);
-        padding: 15px 14px;
         border-width: 1px;
+        padding: 11px 10px;
+    }
+
+    #mic.large, #send.large {
+        padding: 15px 14px;
     }
 
     #messageArea {
-        @apply bg-base-200 w-full text-lg resize-none h-full outline-none focus:outline-none border-none focus:border-none px-0 md:px-2;
+        @apply bg-base-200 w-full text-lg resize-none h-12 outline-none focus:outline-none border-none focus:border-none px-0 md:px-2;
     }
 
     
