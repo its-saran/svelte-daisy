@@ -97,8 +97,9 @@
         <Header {openSettings} {exitFullscreen} {getName} {getGender} bind:isMobile bind:isFullscreen bind:isMute {toggleMute}/>
         <Playground bind:messages/>
         {#if isMobile}
-            <Display bind:textValue/>
-            <Controls bind:textValue {updateContent} {clearText} bind:isSessionRunning/>
+            <!-- <Display bind:textValue/>
+            <Controls bind:textValue {updateContent} {clearText} bind:isSessionRunning/> -->
+            <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning/>
         {:else}
             <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning/>
         {/if}
@@ -110,6 +111,6 @@
 
 <style lang="postcss">
     #app {
-        @apply bg-base-100;
+        @apply bg-base-100 flex flex-col;
     }
 </style>

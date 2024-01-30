@@ -27,25 +27,25 @@
 <style lang="postcss">
     #desktopControls {
         @apply flex items-center justify-center z-10;
-        height: 14%;
-    }
-
-    #messageArea {
-        @apply bg-base-200;
+        height: 86px;
     }
 
     #controls {
-        @apply flex items-center h-full gap-3 px-2 w-2/3  py-3 bg-base-200;
+        @apply flex items-center h-full gap-3 px-2 w-full mx-2 md:w-2/3 py-3 bg-base-200 border border-base-300 md:mb-12;
         border-radius: 50px;
     }
 
     #mic, #send{
-        @apply cursor-pointer flex items-center justify-center rounded-full border-gray-500 bg-primary;
+        @apply cursor-pointer flex items-center justify-center rounded-full border-gray-500 bg-primary text-base-100;
         transition: all .85s cubic-bezier(0.25, 1, 0.33, 1);
         -webkit-tap-highlight-color: transparent;
         tap-highlight-color: rgba(0,0,0,0);
         padding: 15px 14px;
         border-width: 1px;
+    }
+
+    #messageArea {
+        @apply bg-base-200;
     }
 
     
