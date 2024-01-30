@@ -5,9 +5,11 @@
     import Settings from '$lib/components/Settings/Settings.svelte';
     import Playground from '$lib/components/Home/Playground.svelte';
     import Controls from '$lib/components/Home/Controls.svelte';
+    import DesktopControls from '$lib/components/Home/DesktopControls.svelte';
     import Display from '$lib/components/Home/Display.svelte';
     import openAI from '$lib/utils/openAI.js';
     import audioPlayer from '$lib/utils/audioPlayer.js'
+    import Crypto from '$lib/utils/crypto.js';
   
     export let exitFullscreen;
     export let changeTheme;
@@ -94,9 +96,11 @@
     <div id="app" class="h-screen overflow-hidden">
         <Header {openSettings} {exitFullscreen} {getName} {getGender} bind:isMobile bind:isFullscreen bind:isMute {toggleMute}/>
         <Playground bind:messages/>
-        <Display bind:textValue/>
         {#if isMobile}
+            <Display bind:textValue/>
             <Controls bind:textValue {updateContent} {clearText} bind:isSessionRunning/>
+        {:else}
+            <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning/>
         {/if}
     </div>
 {:else}

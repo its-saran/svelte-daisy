@@ -41,8 +41,8 @@
     };
 
     const handleResize = () => updateIsMobile();
-    const updateName = (text) => (name = text);
-    const updateGender = (text) => (gender = text);
+    const updateName = (value) => (name = value);
+    const updateGender = (value) => (gender = value);
     const updateKeys = (dKey, oKey) => {
         deepgramKey = dKey;
         openaiKey = oKey;

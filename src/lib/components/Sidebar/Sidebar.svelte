@@ -26,7 +26,7 @@
     </div> 
     <div class="drawer-side">
       <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-      <div class="w-72 min-h-full bg-base-200 text-base-content flex">
+      <div class="w-72 min-h-full bg-base-100 text-base-content flex">
           <!-- Sidebar content here -->
           <button class="self-end border-t border-zinc-600 w-full flex items-center px-3 py-2 gap-4" on:click={openSettings}>
               <div class="avatar placeholder">

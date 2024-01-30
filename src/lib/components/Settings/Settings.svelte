@@ -66,7 +66,7 @@
             <div class="btn btn-ghost text-xl p-0">Settings</div>
         </div>
     </div>
-    <div class="h-full pt-24 flex flex-col gap-4 bg-base-200">
+    <div class="h-full pt-24 flex flex-col gap-4 bg-base-100">
         <div id="profile" class="flex flex-col items-center gap-2">
             <div class="avatar">
                 <div class="w-24 h-24 rounded-full">
