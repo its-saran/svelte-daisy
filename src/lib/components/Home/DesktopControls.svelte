@@ -17,7 +17,7 @@
         <button id="mic">
             <Microphone width={35} height={35}/>
         </button>
-        <textarea id="messageArea" class="textarea w-full text-lg resize-none h-full" placeholder="Talk with me" bind:value={textValue}></textarea>
+        <textarea id="messageArea" class="textarea" placeholder="Talk with me" bind:value={textValue}></textarea>
         <button id="send" on:click={sendMessage}>
             <Send width={35} height={35}/>
         </button>
@@ -45,7 +45,7 @@
     }
 
     #messageArea {
-        @apply bg-base-200;
+        @apply bg-base-200 w-full text-lg resize-none h-full outline-none focus:outline-none border-none focus:border-none;
     }
 
     
