@@ -45,7 +45,7 @@
     }
 
     #messageArea {
-        @apply bg-base-200 w-full text-lg resize-none h-full outline-none focus:outline-none border-none focus:border-none;
+        @apply bg-base-200 w-full text-lg resize-none h-full outline-none focus:outline-none border-none focus:border-none px-0 md:px-2;
     }
 
     
