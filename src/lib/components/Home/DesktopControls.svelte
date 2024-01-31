@@ -241,6 +241,12 @@
     const sendMessage = () => {
         updateContent();
     }
+
+    let focusedElement;
+
+    function focusElement() {
+        focusedElement.focus();
+    }
     onMount(() => {
         
      });
@@ -256,6 +262,8 @@
             class="textarea"
             placeholder="Talk with me"
             bind:value={textValue}
+            bind:this={focusedElement}
+            on:click={focusElement}
         ></textarea>
         <button id="send" class:large={!isMobile} on:click={sendMessage}>
             <Send width={iconSize} height={iconSize}/>
