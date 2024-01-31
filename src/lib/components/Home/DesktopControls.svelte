@@ -26,19 +26,21 @@
 
     const updateControlsPosition = () => {
         if (isKeyboardOpen) {
-            playgroundHeight = 50
+            playgroundHeight = 45
         } else {
-            playgroundHeight = 80
+            playgroundHeight = 100
         }
     }
 </script>
 
 <div id="desktopControls" class="flex flex-col">
     <div id="controls">
-        <button id="mic" class:large={!isMobile}>
-            <Microphone width={iconSize} height={iconSize}/>
-        </button>
-        <textarea id="messageArea" class="textarea" placeholder="Talk with me"  bind:value={textValue} on:focus={handleFocus} on:blur={handleBlur}></textarea>
+        <div class="left">
+            <button id="mic" class:large={!isMobile}>
+                <Microphone width={iconSize} height={iconSize}/>
+            </button>
+            <textarea id="messageArea" class="textarea" placeholder="Talk with me"  bind:value={textValue} on:focus={handleFocus} on:blur={handleBlur}></textarea>
+        </div>
         <button id="send" class:large={!isMobile} on:click={sendMessage}>
             <Send width={iconSize} height={iconSize}/>
         </button>
@@ -51,11 +53,13 @@
     }
 
     #controls {
-        @apply flex items-center gap-3 px-2 w-full mx-1 md:w-2/3 md:py-3 bg-base-200 border border-base-300 h-20;
-        /* md:mb-12 */
-        border-radius: 50px;
+        @apply flex items-center justify-center w-full gap-2 md:gap-3;
     }
 
+    #controls .left{
+        @apply flex bg-base-200 border border-base-300 gap-3 px-2 w-full mx-1 md:w-2/3 py-2 md:py-2 h-full;
+        border-radius: 50px;
+    }
 
     #mic, #send{
         @apply cursor-pointer flex items-center justify-center rounded-full border-gray-500 bg-primary text-base-100;

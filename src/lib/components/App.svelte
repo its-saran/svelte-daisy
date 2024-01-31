@@ -18,7 +18,7 @@
     export let isMobile;
     export let isFullscreen;
 
-    let playgroundHeight = 80;
+    let playgroundHeight = 100;
 
     let waitForAudio = true;
     let isMute = false;
