@@ -26,7 +26,7 @@
 
     const updateControlsPosition = () => {
         if (isKeyboardOpen) {
-            playgroundHeight = 45
+            playgroundHeight = 40
         } else {
             playgroundHeight = 100
         }
@@ -49,15 +49,15 @@
 
 <style lang="postcss">
     #desktopControls {
-        @apply flex flex-grow items-center z-10;
+        @apply bg-base-100 flex flex-grow items-center z-10 my-2 mx-1;
     }
 
     #controls {
-        @apply flex items-center justify-center w-full gap-2 md:gap-3;
+        @apply flex items-center justify-center w-full gap-1 md:gap-3;
     }
 
     #controls .left{
-        @apply flex bg-base-200 border border-base-300 gap-3 px-2 w-full mx-1 md:w-2/3 py-2 md:py-2 h-full;
+        @apply flex bg-base-200 border border-base-300 gap-3 px-2 w-full md:w-2/3 py-2 md:py-2 h-full;
         border-radius: 50px;
     }
 
