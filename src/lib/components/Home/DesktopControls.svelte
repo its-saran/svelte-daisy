@@ -242,27 +242,37 @@
         updateContent();
     }
 
-    let screenHeight = window.innerHeight;
+    let windowHeight = window.innerHeight;
 
     const checkScreenHeight = () => {
-        screenHeight = window.innerHeight;
+        const newHeight = window.innerHeight;
+
+        if (newHeight < windowHeight) {
+            // Keyboard might be open
+            const keyboardHeight = windowHeight - newHeight;
+            console.log(`Mobile keyboard height: ${keyboardHeight}px`);
+        } else {
+            // Keyboard might be closed
+        }
+
+        windowHeight = newHeight;
     };
 
+
     onMount(() => {
-        // Initial check
-        checkScreenHeight();
+        window.addEventListener('resize', checkScreenHeight);
      });
 </script>
 
 <div id="desktopControls">
     <div id="controls">
-        <button id="mic" class:large={!isMobile}  on:click={checkScreenHeight}>
+        <button id="mic" class:large={!isMobile} >
             <Microphone width={iconSize} height={iconSize}/>
         </button>
         <textarea
             id="messageArea"
             class="textarea"
-            placeholder={`Screen Height: ${screenHeight}`}
+            placeholder={`Screen Height: ${windowHeight}`}
             bind:value={textValue}
         ></textarea>
         <button id="send" class:large={!isMobile} on:click={sendMessage}>
