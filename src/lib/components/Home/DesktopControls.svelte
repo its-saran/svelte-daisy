@@ -242,41 +242,35 @@
         updateContent();
     }
 
-    let isKeyboardOpen = false;
+    let screenHeight = window.innerHeight;
 
-    const checkKeyboardVisibility = () => {
-        const windowHeight = window.innerHeight;
-
-        // You can set a threshold based on your specific use case
-        const threshold = 100;
-
-        // Check if the window height has changed beyond the threshold
-        isKeyboardOpen = Math.abs(windowHeight - window.innerHeight) > threshold;
+    const checkScreenHeight = () => {
+        screenHeight = window.innerHeight;
     };
 
     onMount(() => {
         // Listen for the resize event`
-        window.addEventListener('resize', checkKeyboardVisibility);
+        window.addEventListener('resize', checkScreenHeight);
 
         // Initial check
-        checkKeyboardVisibility();
+        checkScreenHeight();
 
         // Cleanup event listener on component destruction
         return () => {
-            window.removeEventListener('resize', checkKeyboardVisibility);
+            window.removeEventListener('resize', checkScreenHeight);
         };
      });
 </script>
 
 <div id="desktopControls">
-    <div id="controls" class:keyboard-open={isKeyboardOpen}>
+    <div id="controls">
         <button id="mic" class:large={!isMobile}>
             <Microphone width={iconSize} height={iconSize}/>
         </button>
         <textarea
             id="messageArea"
             class="textarea"
-            placeholder={isKeyboardOpen ? "Keyboard open": "Keyboard is not open"}
+            placeholder={`Screen Height: ${screenHeight}`}
             bind:value={textValue}
         ></textarea>
         <button id="send" class:large={!isMobile} on:click={sendMessage}>
@@ -294,7 +288,8 @@
         @apply flex items-center h-full gap-3 px-2 w-full mx-1 md:w-2/3 md:py-3 bg-base-200 border border-base-300 md:mb-12;
         border-radius: 50px;
         transition: transform 0.3s ease-out;
-        transform: translateY(0);
+        /* transform: translateY(0); */
+        transform: translateY(-600%);
     }
 
     #mic, #send{
