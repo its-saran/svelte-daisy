@@ -114,7 +114,7 @@
     }
 
     #controls.keyboard-open {
-        transform: translateY(-400%);
+        transform: translateY(-600%);
     }
 
     #mic, #send{
