@@ -20,13 +20,15 @@
     }
 
     const handleBlur = () => {
-        isKeyboardOpen = false;
-        updateControlsPosition();
+        setTimeout(() => {
+            isKeyboardOpen = false;
+            updateControlsPosition();
+        }, 100);
     }
 
     const updateControlsPosition = () => {
         if (isKeyboardOpen) {
-            playgroundHeight = 40
+            playgroundHeight = 45
         } else {
             playgroundHeight = 100
         }

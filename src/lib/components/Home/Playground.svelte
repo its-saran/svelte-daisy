@@ -25,6 +25,7 @@
     #playground{
         @apply flex flex-col items-center p-4 overflow-y-auto break-words whitespace-pre-wrap gap-6;
         /* transition: height .85s cubic-bezier(0.25, 1, 0.33, 1); */
+        transition: height 0.85s ease;
     }
 
     ul {
