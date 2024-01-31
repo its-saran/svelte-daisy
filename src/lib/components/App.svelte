@@ -85,8 +85,6 @@
         }
     };
 
-    let playgroundHeight = 100;
-
     onMount(() => {
         openaiKey = localStorage.getItem('openaiKey');
     })
@@ -97,13 +95,13 @@
 {#if !isSettings}
     <div id="app" class="min-h-screen overflow-hidden">
         <Header {openSettings} {exitFullscreen} {getName} {getGender} bind:isMobile bind:isFullscreen bind:isMute {toggleMute}/>
-        <Playground bind:messages bind:playgroundHeight/>
+        <Playground bind:messages/>
         {#if isMobile}
             <!-- <Display bind:textValue/>
             <Controls bind:textValue {updateContent} {clearText} bind:isSessionRunning/> -->
-            <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning bind:isMobile bind:playgroundHeight/>
+            <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning bind:isMobile />
         {:else}
-            <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning bind:isMobile bind:playgroundHeight/>
+            <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning bind:isMobile />
         {/if}
     </div>
 {:else}
