@@ -249,16 +249,8 @@
     };
 
     onMount(() => {
-        // Listen for the resize event`
-        window.addEventListener('resize', checkScreenHeight);
-
         // Initial check
         checkScreenHeight();
-
-        // Cleanup event listener on component destruction
-        return () => {
-            window.removeEventListener('resize', checkScreenHeight);
-        };
      });
 </script>
 
@@ -272,6 +264,7 @@
             class="textarea"
             placeholder={`Screen Height: ${screenHeight}`}
             bind:value={textValue}
+            on:click={checkScreenHeight}
         ></textarea>
         <button id="send" class:large={!isMobile} on:click={sendMessage}>
             <Send width={iconSize} height={iconSize}/>
