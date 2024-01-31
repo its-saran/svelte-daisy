@@ -17,25 +17,29 @@
 
 </script>
 
-<div class="navbar bg-base-100 fixed z-40 shadow-xl">
-    <div class="z-20 w-full flex justify-between">
-        <div class="flex gap-2">
-            <Sidebar {openSettings} {getName} {getGender}/>
-            <div class="btn btn-ghost text-xl p-0 md:p-2">Daisy AI</div>
-        </div>
-        <div class="flex items-center gap-2">
-            <button id="stopAudio" class="btn btn-ghost btn-circle" on:click={toggleMute}>
-                {#if isMute}
-                    <Mute/>
-                {:else}
-                    <Speaker/>
-                {/if}
-            </button>
-            {#if isMobile || !isMobile && isFullscreen}
-                <button class="btn btn-ghost btn-circle" on:click={exitFullscreen}>
-                    <Exit/>
+<div id="navbar">
+    <div class="navbar bg-base-100 fixed z-40 shadow-xl">
+        <div class="z-20 w-full flex justify-between">
+            <div class="flex gap-2">
+                <Sidebar {openSettings} {getName} {getGender}/>
+                <div class="btn btn-ghost text-xl p-0 md:p-2">Daisy AI</div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button id="stopAudio" class="btn btn-ghost btn-circle" on:click={toggleMute}>
+                    {#if isMute}
+                        <Mute/>
+                    {:else}
+                        <Speaker/>
+                    {/if}
                 </button>
-            {/if}
+                {#if isMobile || !isMobile && isFullscreen}
+                    <button class="btn btn-ghost btn-circle" on:click={exitFullscreen}>
+                        <Exit/>
+                    </button>
+                {/if}
+            </div>
         </div>
     </div>
+    <div class="navbarFiller h-16"></div>
 </div>
+
