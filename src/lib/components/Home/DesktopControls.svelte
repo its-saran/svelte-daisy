@@ -256,7 +256,7 @@
 
 <div id="desktopControls">
     <div id="controls">
-        <button id="mic" class:large={!isMobile}>
+        <button id="mic" class:large={!isMobile}  on:click={checkScreenHeight}>
             <Microphone width={iconSize} height={iconSize}/>
         </button>
         <textarea
@@ -264,7 +264,6 @@
             class="textarea"
             placeholder={`Screen Height: ${screenHeight}`}
             bind:value={textValue}
-            on:click={checkScreenHeight}
         ></textarea>
         <button id="send" class:large={!isMobile} on:click={sendMessage}>
             <Send width={iconSize} height={iconSize}/>
@@ -281,8 +280,7 @@
         @apply flex items-center h-full gap-3 px-2 w-full mx-1 md:w-2/3 md:py-3 bg-base-200 border border-base-300 md:mb-12;
         border-radius: 50px;
         transition: transform 0.3s ease-out;
-        /* transform: translateY(0); */
-        transform: translateY(-600%);
+        transform: translateY(0);
     }
 
     #mic, #send{
