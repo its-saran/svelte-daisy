@@ -241,27 +241,8 @@
     const sendMessage = () => {
         updateContent();
     }
-
-    let windowHeight = window.innerHeight;
-    let keyboardHeight;
-
-    const checkScreenHeight = () => {
-        const newHeight = window.innerHeight;
-
-        if (newHeight < windowHeight) {
-            // Keyboard might be open
-            keyboardHeight = windowHeight - newHeight;
-            console.log(`Mobile keyboard height: ${keyboardHeight}px`);
-        } else {
-            keyboardHeight = "Keybard is not open"
-        }
-
-        windowHeight = newHeight;
-    };
-
-
     onMount(() => {
-        window.addEventListener('resize', checkScreenHeight);
+        
      });
 </script>
 
@@ -273,7 +254,7 @@
         <textarea
             id="messageArea"
             class="textarea"
-            placeholder={`Keyboard Height: ${keyboardHeight}`}
+            placeholder="Talk with me"
             bind:value={textValue}
         ></textarea>
         <button id="send" class:large={!isMobile} on:click={sendMessage}>
@@ -288,7 +269,7 @@
     }
 
     #controls {
-        @apply flex items-center h-full gap-3 px-2 w-full mx-1 md:w-2/3 md:py-3 bg-base-200 border border-base-300 md:mb-12;
+        @apply flex items-center h-full gap-3 px-2 w-full mx-1 md:w-2/3 md:py-3 bg-base-200 border border-base-300 md:mb-12 mb-12;
         border-radius: 50px;
         transition: transform 0.3s ease-out;
         transform: translateY(0);
