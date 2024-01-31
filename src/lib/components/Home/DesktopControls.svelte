@@ -96,11 +96,11 @@
     export let textValue;
     export let updateContent;
     export let clearText;
-    export let isSessionRunning;
+    // export let isSessionRunning;
 
     export let isMobile;
     export let iconSize = isMobile ? 25 : 35;
-    let initialHeight = isMobile ? 10 : 15;
+    let initialHeight = isMobile ? 6.5 : 15;
     let canEdit = false;
 
     const sendMessage = () => {
@@ -331,12 +331,9 @@
                 <Microphone width={iconSize} height={iconSize}/>
             </button>
             <textarea id="messageArea" class="textarea" placeholder="Talk with me"  bind:value={textValue} disabled={!canEdit}></textarea>
-            <button id="mic" class:large={!isMobile} class:active={isMicActive} on:touchstart={handleTouchStart} on:touchend={handleTouchEnd} on:touchmove={handleTouchMove}>
-                <Microphone width={iconSize} height={iconSize}/>
-            </button>
         </div>
-        <button id="send" class:large={!isMobile} on:click={sendMessage}>
-            <Send width={iconSize} height={iconSize}/>
+        <button id="mic" class:large={!isMobile} class:active={isMicActive} on:touchstart={handleTouchStart} on:touchend={handleTouchEnd} on:touchmove={handleTouchMove}>
+            <Microphone width={iconSize} height={iconSize}/>
         </button>
     </div>
 </div>
@@ -378,7 +375,7 @@
 
 
     #mic.active {
-        transform:scale(0.8);
+        transform:scale(1.7);
         /* background: #050801; */
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 0, 0, 0.5), 0 0 50px rgba(0, 0, 0, 0.5);
         -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 0, 0, 0.5), 0 0 50px rgba(0, 0, 0, 0.5);

@@ -101,7 +101,7 @@
             <Controls bind:textValue {updateContent} {clearText} bind:isSessionRunning/> -->
             <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning bind:isMobile />
         {:else}
-            <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning bind:isMobile />
+            <!-- <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning bind:isMobile /> -->
         {/if}
     </div>
 {:else}
