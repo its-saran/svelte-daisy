@@ -137,6 +137,8 @@
  -->
 
 
+<!--  
+
 <script>
     import Microphone from '$lib/components/Icons/Microphone.svelte';
     import Send from '$lib/components/Icons/Send.svelte';
@@ -185,6 +187,97 @@
             bind:value={textValue}
             on:focus={handleFocus}
             on:blur={handleBlur}
+        ></textarea>
+        <button id="send" class:large={!isMobile} on:click={sendMessage}>
+            <Send width={iconSize} height={iconSize}/>
+        </button>
+    </div>
+</div>
+
+<style lang="postcss">
+    #desktopControls {
+        @apply flex items-center justify-center z-10 h-16 md:h-20;
+    }
+
+    #controls {
+        @apply flex items-center h-full gap-3 px-2 w-full mx-1 md:w-2/3 md:py-3 bg-base-200 border border-base-300 md:mb-12;
+        border-radius: 50px;
+        transition: transform 0.3s ease-out;
+        transform: translateY(0);
+    }
+
+    #mic, #send{
+        @apply cursor-pointer flex items-center justify-center rounded-full border-gray-500 bg-primary text-base-100;
+        transition: all .85s cubic-bezier(0.25, 1, 0.33, 1);
+        -webkit-tap-highlight-color: transparent;
+        tap-highlight-color: rgba(0,0,0,0);
+        border-width: 1px;
+        padding: 11px 10px;
+    }
+
+    #mic.large, #send.large {
+        padding: 15px 14px;
+    }
+
+    #messageArea {
+        @apply bg-base-200 w-full text-lg resize-none h-12 outline-none focus:outline-none border-none focus:border-none px-0 md:px-2;
+    }
+</style> -->
+
+
+
+
+
+<script>
+    import { onMount } from 'svelte';
+    import Microphone from '$lib/components/Icons/Microphone.svelte';
+    import Send from '$lib/components/Icons/Send.svelte';
+
+    export let textValue;
+    export let updateContent;
+    export let isMobile;
+    export let iconSize = isMobile ? 25 : 35;
+
+    const sendMessage = () => {
+        updateContent();
+    }
+
+    let isKeyboardOpen = false;
+
+    const checkKeyboardVisibility = () => {
+        const windowHeight = window.innerHeight;
+
+        // You can set a threshold based on your specific use case
+        const threshold = 100;
+
+        // Check if the window height has changed beyond the threshold
+        isKeyboardOpen = Math.abs(windowHeight - window.innerHeight) > threshold;
+    };
+
+    onMount(() => {
+        // Listen for the resize event`
+        window.addEventListener('resize', checkKeyboardVisibility);
+
+        // Initial check
+        checkKeyboardVisibility();
+
+        // Cleanup event listener on component destruction
+        return () => {
+            window.removeEventListener('resize', checkKeyboardVisibility);
+        };
+     });
+</script>
+
+<div id="desktopControls">
+    <div id="controls" class:keyboard-open={isKeyboardOpen}>
+        <button id="mic" class:large={!isMobile}>
+            <Microphone width={iconSize} height={iconSize}/>
+        </button>
+        <textarea
+            id="messageArea"
+            class="textarea"
+            placeholder={isKeyboardOpen ? "Keyboard open": "Keyboard is not open"}
+            bind:value={textValue}
         ></textarea>
         <button id="send" class:large={!isMobile} on:click={sendMessage}>
             <Send width={iconSize} height={iconSize}/>
