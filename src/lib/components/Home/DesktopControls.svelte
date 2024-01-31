@@ -1,4 +1,4 @@
-<!-- <script>
+<script>
     import Microphone from '$lib/components/Icons/Microphone.svelte';
     import Send from '$lib/components/Icons/Send.svelte';
 
@@ -33,6 +33,7 @@
             playgroundHeight = 100
         }
     }
+    
 </script>
 
 <div id="desktopControls" class="flex flex-col">
@@ -81,9 +82,9 @@
     }
 </style>
 
- -->
 
 
+<!-- 
  <script>
     import Microphone from '$lib/components/Icons/Microphone.svelte';
     import Send from '$lib/components/Icons/Send.svelte';
@@ -173,5 +174,5 @@
 
 
 
-
+ -->
 
