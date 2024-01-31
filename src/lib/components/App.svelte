@@ -97,11 +97,10 @@
         <Header {openSettings} {exitFullscreen} {getName} {getGender} bind:isMobile bind:isFullscreen bind:isMute {toggleMute}/>
         <Playground bind:messages/>
         {#if isMobile}
-            <!-- <Display bind:textValue/>
-            <Controls bind:textValue {updateContent} {clearText} bind:isSessionRunning/> -->
-            <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning bind:isMobile />
+            <Display bind:textValue/>
+            <Controls bind:textValue {updateContent} {clearText} bind:isSessionRunning/>
         {:else}
-            <!-- <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning bind:isMobile /> -->
+            <DesktopControls bind:textValue {updateContent}/>
         {/if}
     </div>
 {:else}

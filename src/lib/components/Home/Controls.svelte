@@ -277,7 +277,7 @@
 <style lang="postcss">
 
     #controls {
-        @apply flex items-center justify-center z-10;
+        @apply flex items-center justify-center z-10 bg-base-200;
         height: 15%;
     }
 
