@@ -243,16 +243,17 @@
     }
 
     let windowHeight = window.innerHeight;
+    let keyboardHeight;
 
     const checkScreenHeight = () => {
         const newHeight = window.innerHeight;
 
         if (newHeight < windowHeight) {
             // Keyboard might be open
-            const keyboardHeight = windowHeight - newHeight;
+            keyboardHeight = windowHeight - newHeight;
             console.log(`Mobile keyboard height: ${keyboardHeight}px`);
         } else {
-            // Keyboard might be closed
+            keyboardHeight = "Keybard is not open"
         }
 
         windowHeight = newHeight;
@@ -272,7 +273,7 @@
         <textarea
             id="messageArea"
             class="textarea"
-            placeholder={`Screen Height: ${windowHeight}`}
+            placeholder={`Keyboard Height: ${keyboardHeight}`}
             bind:value={textValue}
         ></textarea>
         <button id="send" class:large={!isMobile} on:click={sendMessage}>
