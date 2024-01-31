@@ -18,8 +18,6 @@
     export let isMobile;
     export let isFullscreen;
 
-    let playgroundHeight = 100;
-
     let waitForAudio = true;
     let isMute = false;
     let isSessionRunning = false;
@@ -95,15 +93,15 @@
 
 
 {#if !isSettings}
-    <div id="app" class="h-screen overflow-hidden">
+    <div id="app" class="min-h-screen overflow-hidden">
         <Header {openSettings} {exitFullscreen} {getName} {getGender} bind:isMobile bind:isFullscreen bind:isMute {toggleMute}/>
-        <Playground bind:messages bind:playgroundHeight/>
+        <Playground bind:messages/>
         {#if isMobile}
             <!-- <Display bind:textValue/>
             <Controls bind:textValue {updateContent} {clearText} bind:isSessionRunning/> -->
-            <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning bind:isMobile bind:playgroundHeight/>
+            <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning bind:isMobile/>
         {:else}
-            <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning bind:isMobile bind:playgroundHeight/>
+            <DesktopControls bind:textValue {updateContent} {clearText} bind:isSessionRunning bind:isMobile/>
         {/if}
     </div>
 {:else}
