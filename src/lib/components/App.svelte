@@ -12,7 +12,6 @@
     import Crypto from '$lib/utils/crypto.js';
   
     export let exitFullscreen;
-    export let changeTheme;
     export let messages;
     export let count;
     export let isMobile;
@@ -104,7 +103,7 @@
         {/if}
     </div>
 {:else}
-    <Settings {closeSettings} {getName} {getGender} {changeTheme}/>
+    <Settings {closeSettings} {getName} {getGender}/>
 {/if}
 
 

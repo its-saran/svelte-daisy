@@ -1,8 +1,8 @@
 <script>
     import { onMount } from "svelte";
+    import { appState, updateState} from '$lib/stores/preferences.js'
 
     export let closeSettings;
-    export let changeTheme;
     export let getName;
     export let getGender;
 
@@ -13,6 +13,7 @@
     let isLightTheme;
 
     let modalRef;
+    let themeModal;
 
     const openModal = () => modalRef.showModal();
     const submit = () => {
@@ -26,19 +27,23 @@
     }
 
     const setLightTheme = () => {
-        changeTheme('light')
+        updateState({theme: 'light'})
         isLightTheme = true;
         localStorage.setItem('theme', 'light')
+        themeModal.close()
     }
 
     const setDarkTheme = () => {
-        changeTheme('dark')
+        updateState({theme: 'dark'})
         isLightTheme = false;
         localStorage.setItem('theme', 'dark')
+        themeModal.close()
     }
 
     onMount(() => {
         const theme = localStorage.getItem('theme');
+
+        console.log($appState.theme)
 
         if (theme === 'light') isLightTheme = true;
 
@@ -81,7 +86,7 @@
                     <div class="text-lg font-medium">Theme</div>
                     <div>
                         <button class="btn btn-neutral w-24" onclick="theme_dialog.showModal()">View</button>
-                        <dialog id="theme_dialog" class="modal">
+                        <dialog id="theme_dialog" class="modal" bind:this={themeModal}>
                             <div class="modal-box w-56">
                                 <h3 class="font-bold text-lg mb-2">Theme</h3>
                                 <div class="form-control">
@@ -95,11 +100,6 @@
                                       <span class="label-text">Dark</span> 
                                       <input type="radio" name="radio-10" class="radio checked:bg-primary" on:click={setDarkTheme} checked={!isLightTheme}/>
                                     </label>
-                                </div>
-                                <div class="modal-action m-0 mt-4 ">
-                                    <form method="dialog">
-                                      <button class="btn my-0">OK</button>
-                                    </form>
                                 </div>
                             </div>
                             <form method="dialog" class="modal-backdrop">

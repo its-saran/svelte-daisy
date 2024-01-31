@@ -1,14 +1,12 @@
 <script>
     import { onMount } from 'svelte';
     import { writable } from 'svelte/store';
+    import { appState, updateState} from '$lib/stores/preferences.js'
 
     import App from '$lib/components/App.svelte';
     import Welcome from '$lib/components/Welcome.svelte';
     import Keys from '$lib/components/Keys.svelte';
     import Loader from '$lib/components/Loader.svelte'
-
-    let initialTheme;
-    let theme;
 
     let count = 0;
     let messages = [];
@@ -48,16 +46,9 @@
         openaiKey = oKey;
     };
 
-    const changeTheme = (newTheme) => {
-        theme.update((currentTheme) => newTheme);
-    };
-
     onMount(async () => {
-        const storedTheme = localStorage.getItem('theme');
-        initialTheme = storedTheme || 'light';
-
-        theme = writable(initialTheme);
-        await Promise.resolve();
+        const theme = localStorage.getItem('theme');
+        if (theme) updateState({theme})
 
         name = localStorage.getItem('name');
         gender = localStorage.getItem('gender')
@@ -79,7 +70,7 @@
     });
 </script>
 
-<main class="w-screen h-screen overflow-hidden" data-theme={$theme}>
+<main class="w-screen h-screen overflow-hidden" data-theme={$appState.theme}>
     {#if isLoading}
         <!-- Loading screen -->
         <Loader/>
@@ -100,7 +91,7 @@
                 <Welcome {updateName} {updateGender} />
             {:else}
                 {#if (deepgramKey && openaiKey)}
-                    <App {exitFullscreen} {changeTheme} bind:messages bind:count bind:isMobile bind:isFullscreen/>
+                    <App {exitFullscreen} bind:messages bind:count bind:isMobile bind:isFullscreen/>
                 {:else}
                     <Keys {updateKeys} />
                 {/if}
